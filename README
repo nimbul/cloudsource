@@ -1,5 +1,5 @@
 ==== CloudSource ==== 
-Cloudsource is a set of scripts developed by The New York Times and specifically by Cody Casterline. Cloudsource is used to deploy code found in SVN. It is a (heavily) modified version of Servermattic. The current version of Cloudsource can be found in SVN. Cloudsource is maintained by Infrastructure.
+Cloudsource is a set of scripts developed by The New York Times and specifically by Cody Casterline. Cloudsource is used to deploy code found in SVN. It is a (heavily) modified version of Servermattic: http://code.trac.wordpress.org/browser/servermattic
 
 Cloudsource consists of three shell scripts:
 
