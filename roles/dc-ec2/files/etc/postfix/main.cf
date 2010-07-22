@@ -1,0 +1,40 @@
+mail_owner   = postfix
+setgid_group = postdrop
+
+inet_interfaces = localhost
+mynetworks      = 127.0.0.0/8
+mydomain        = %mydomain%
+myhostname      = %myhostname%
+myorigin        = %myorigin%
+mydestination   = localhost
+relayhost       = [%relayhost%]
+
+# make sure we use the /etc/hosts file before dns
+smtp_host_lookup = native
+
+# maps / databases 
+
+alias_maps     = hash:/etc/aliases
+alias_database = hash:/etc/aliases
+
+# security / rejection
+
+unknown_local_recipient_reject_code = 550
+
+smtpd_recipient_restrictions = permit_mynetworks, reject_unauth_destination, reject
+
+#
+# directories and paths
+#
+mailq_path        = /usr/bin/mailq.postfix
+sendmail_path     = /usr/sbin/sendmail.postfix
+newaliases_path   = /usr/bin/newaliases.postfix
+
+queue_directory   = /var/spool/postfix
+command_directory = /usr/sbin
+daemon_directory  = /usr/libexec/postfix
+manpage_directory = /usr/share/man
+sample_directory  = /usr/share/doc/postfix-2.3.3/samples
+readme_directory  = /usr/share/doc/postfix-2.3.3/README_FILES
+
+html_directory = no

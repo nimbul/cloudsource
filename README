@@ -1,0 +1,178 @@
+==== CloudSource ==== 
+Cloudsource is a set of scripts developed by The New York Times and specifically by Cody Casterline. Cloudsource is used to deploy code found in SVN. It is a (heavily) modified version of Servermattic. The current version of Cloudsource can be found in SVN. Cloudsource is maintained by Infrastructure.
+
+Cloudsource consists of three shell scripts:
+
+    * role.sh - The main driver script that performs deployment, rollback, and management of Cloudsource roles.
+    * deploy.sh - Given that Cloudsource must be installed on the target, deployment server, deploy.sh performs the deployment of Cloudsource itself by running it on the target machine. You need to only run this script only once.
+    * linkprop.sh - This script creates links on the installation filesystem that point to the regular files found in the Cloudsource roles. This script isn't normally run by the user.
+
+==== Usage: role.sh ====
+
+Description:
+	role.sh is used to install ("apply") and manage "roles" that may apply to a system. 
+
+Sample:
+	./role.sh [--force] command [arg1] [arg2] [...]
+
+Commands for ./role.sh:
+
+	help
+		Show this help"
+
+	init
+		Initialize the system. (You shouldn't have to run this.) 
+
+	update-cs
+		Update Cloudsource scripts from SVN.
+
+	apply role1[,role2][...]
+
+		Apply or re-apply a role by name. If you want to update the externals no matter 
+		what the role revision, use the update command.
+
+	apply role1 1234
+		Applies version 1234 of role 'role1'.
+
+	reapply-all
+		Runs 'apply role' on all installed roles, updating them to the latest version.
+
+	update role1[,role2][...]
+		Update role along with externals without any limiting conditions.
+
+	version
+		Show the versions of installed roles. 
+
+	list
+		Show all roles defined in the SVN repository.
+
+	status 
+		Run 'svn status' on all roles to make sure no changes have 
+		been made locally.
+
+	log role
+		Runs svn log on role 'role'.  
+
+	revert role
+		runs 'svn revert' on the role to undo local changes.  
+
+	revert-all
+		runs 'svn revert' on all roles to undo all local changes. 
+
+	link role
+		Link (or re-link) files from a role into their deploy location.
+
+	unlink role
+		Remove links for a role.
+
+	externals [role]
+		show all svn externals for 'role' (if defined) or all roles.
+
+Options for ./role.sh:
+	
+	--force
+		Ignore safety checks (up-to-date, no local modifications) and proceed
+		anyway
+
+
+
+==== How to deploy CloudSource ====
+
+[root@domU-12-31-39-02-64-11:~]
+export ROLES=dc-ec2,php-base,php-nyt
+export SVNURL=https://svn.mydomain.com/svn/cloudsource
+export SVNUSER=<username>
+export SVNPASS=<password>
+
+[root@domU-12-31-39-02-64-11:~] svn export --no-auth-cache --username $SVNUSER --password "$SVNPASS" $SVNURL/bin/deploy.sh
+A    deploy.sh
+
+[root@domU-12-31-39-02-64-11:~]./deploy.sh
+...
+Linking files for role 'base'...
+Running /root/roles/base/scripts/install.sh ...
+CloudSource is now installed. You may now: rm ./deploy.sh
+
+==== How to deploy roles using CloudSource ====
+[root@domU-12-31-39-02-64-11:~] ~/bin/role.sh apply $ROLES
+Checking out role 'dc-ec2' revision 424 ...
+
+A    /root/roles/dc-ec2/files
+A    /root/roles/dc-ec2/files/var
+A    /root/roles/dc-ec2/files/var/nyt
+A    /root/roles/dc-ec2/files/var/nyt/bin
+A    /root/roles/dc-ec2/files/var/nyt/bin/deploy-svn-module
+A    /root/roles/dc-ec2/files/etc
+A    /root/roles/dc-ec2/scripts
+A    /root/roles/dc-ec2/scripts/install.sh
+ U   /root/roles/dc-ec2
+Checked out revision 424.
+Linking files for role 'dc-ec2'...
+Running /root/roles/dc-ec2/scripts/install.sh ...
+Configure /var/nyt/bin scripts
+Update /etc/bashrc...
+Configure cloudmaster
+A    /opt/cloudmaster/test
+A    /opt/cloudmaster/test/enumerator-test.rb
+A    /opt/cloudmaster/test/test-config.ini
+A    /opt/cloudmaster/test/instance-test.rb
+(etc, etc.  Checking out lots of cloudmaster files) 
+Update /etc/bashrc...
+Checking out role 'php-base' revision 424 ...
+
+A    /root/roles/php-base/files
+A    /root/roles/php-base/files/etc
+A    /root/roles/php-base/files/etc/httpd
+A    /root/roles/php-base/files/etc/httpd/conf.d
+A    /root/roles/php-base/files/etc/httpd/conf.d/php.conf
+A    /root/roles/php-base/scripts
+A    /root/roles/php-base/scripts/install.sh
+Checked out revision 424.
+Linking files for role 'php-base'...
+Running /root/roles/php-base/scripts/install.sh ...
+Checking out role 'php-nyt' revision 424 ...
+
+A    /root/roles/php-nyt/files
+A    /root/roles/php-nyt/files/etc
+A    /root/roles/php-nyt/files/etc/php.d
+A    /root/roles/php-nyt/files/etc/php.d/nyt.ini
+A    /root/roles/php-nyt/scripts
+A    /root/roles/php-nyt/scripts/install.sh
+Checked out revision 424.
+Linking files for role 'php-nyt'...
+Running /root/roles/php-nyt/scripts/install.sh ...
+
+==== Checking revision of the roles ====
+[root@domU-12-31-39-02-64-11:~] ~/bin/role.sh versions
+ROLE: base
+        current version:   424
+        latest version:    424
+
+ROLE: dc-ec2
+        current version:   424
+        latest version:    424
+
+ROLE: php-base
+        current version:   424
+        latest version:    424
+
+ROLE: php-nyt
+        current version:   424
+        latest version:    424
+
+==== Rollback ====
+
+Since we're letting SVN handle versioning (instead of a mix of manual/automatic version numbers), it's trivial to roll back to a previous version of a role. 'apply' now takes an optional revision number argument.
+
+# ./role.sh apply uc-be 424
+Updating role 'uc-be' from revision 428 to revision 424 ...
+
+
+Fetching external item into '/root/roles/uc-be/files/var/nyt/lib/backend/php/NYTD_Community_Backend'
+External at revision 27575.
+
+At revision 424.
+Linking files for role 'uc-be'...
+Running /root/roles/uc-be/scripts/install.sh ...
+
+

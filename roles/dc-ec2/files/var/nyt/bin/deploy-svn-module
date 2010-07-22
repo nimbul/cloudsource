@@ -1,0 +1,61 @@
+#!/bin/bash -e
+#
+# deploy-svn-module - Deploy a module from SVN
+#
+# $Id: deploy-svn-module 300 2009-02-23 15:27:57Z vadimj $
+#
+
+function usage {
+  echo "$0: command line options:" >&2;
+  echo "  --help		- Show this message" >&2;
+  echo "  --module	module	- REQUIRED, an svn module to install, e.g. core/releases/123456-7890" >&2;
+  echo "  --svnuser	USER	- Defaults to system-wide SVNUSER env variable" >&2;
+  echo "  --svnpass	PASSWD	- Defaults to system-wide SVNPASS env variable" >&2;
+  echo "  --svnurl	URL	- Defaults to system-wide APP_SVNURL env variable" >&2;
+  echo "  --installdir	DIR	- Where to install, defaults to /var/nyt" >&2;
+}
+  
+# Define a logger
+VERSION=$(perl -e 'print q$Revision: 300 $=~/(\d+)/')
+prog=$(basename $0)
+logger="logger -st $prog-$VERSION"
+
+installdir='/var/nyt'
+
+if [ $# -eq 0 ]; then
+  usage;
+  exit 1;
+fi
+
+while [ $# -gt 0 ]; do
+  case $1 in
+    --help)	usage; exit 0;	;;
+    --module)	module=$2;	shift 2 ;;
+    --svnuser)	SVNUSER=$2;	shift 2 ;;
+    --svnpass)	SVNPASS=$2;	shift 2 ;;
+    --svnurl)	APP_SVNURL=$2;	shift 2 ;;
+    --installdir) installdir=$2;	shift 2 ;;
+    *) echo "$0: Unrecognized option: $1" >&2; usage; exit 1;
+  esac
+done
+
+# Required parameters
+true \
+  ${module:?} \
+  ${SVNUSER:?} \
+  ${SVNPASS:?} \
+  ${APP_SVNURL:?} \
+  ${installdir:?}
+
+echo "Exporting ${module}" >&2
+TMPDIR="/tmp/$(basename $0).$RANDOM"
+svn export --no-auth-cache --username $SVNUSER --password $SVNPASS ${APP_SVNURL}/${module}/ $TMPDIR >&2
+
+echo "Deploying ${module} to ${installdir}"
+mkdir -p ${installdir}
+cp -rf $TMPDIR/[A-Za-z]* ${installdir} 
+
+echo "Cleaning" >&2
+rm -rf $TMPDIR
+
+exit 0

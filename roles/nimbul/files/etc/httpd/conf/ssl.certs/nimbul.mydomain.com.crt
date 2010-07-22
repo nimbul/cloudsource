@@ -1,0 +1,64 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 14 (0xe)
+        Signature Algorithm: sha1WithRSAEncryption
+        Issuer: C=US, ST=New York, L=New York, O=The New York Times Digital, OU=Infrastructure Group, CN=ec2.nytimes.com/emailAddress=nytd_automation@nytimes.com
+        Validity
+            Not Before: Jul 22 08:14:13 2010 GMT
+            Not After : Jul 19 08:14:13 2020 GMT
+        Subject: C=US, ST=New York, L=New York, O=The New York Times Digital, OU=Infrastructure Group, CN=nimbul.mydomain.com/emailAddress=security@mydomain.com
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+            RSA Public Key: (1024 bit)
+                Modulus (1024 bit):
+                    00:f1:ed:70:37:01:3e:e4:ec:ec:d4:61:93:bb:2d:
+                    f7:84:13:d7:e0:d0:f9:e8:c9:3e:0f:ed:ab:60:b5:
+                    d9:43:5b:31:3f:0b:f7:af:f4:af:da:a8:1a:d1:35:
+                    f6:31:71:60:e3:f5:94:1c:bd:ee:4c:b5:ae:27:f8:
+                    ed:8a:9f:af:32:c4:29:73:e6:fb:78:ac:23:bc:4e:
+                    71:db:66:57:cd:13:13:25:0f:88:74:2c:de:69:24:
+                    25:29:fe:69:c5:8d:35:0b:0a:51:0f:f4:7f:58:5f:
+                    56:5a:70:44:6b:db:10:54:ae:2b:a3:09:fd:54:84:
+                    73:8c:5b:a6:84:82:94:cd:c1
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Basic Constraints: 
+                CA:FALSE
+            Netscape Comment: 
+                OpenSSL Generated Certificate
+            X509v3 Subject Key Identifier: 
+                C5:E5:3D:E6:AA:40:FB:83:C7:AD:41:14:99:DB:8B:50:15:83:A8:05
+            X509v3 Authority Key Identifier: 
+                keyid:F5:69:F7:FE:FC:38:55:19:C8:6B:E1:E2:74:91:60:F9:25:54:F9:0B
+
+    Signature Algorithm: sha1WithRSAEncryption
+        94:0e:71:2b:d5:0e:24:1d:fd:11:4a:b5:d7:82:bc:37:34:d6:
+        91:03:15:16:bb:f2:a7:c1:c3:8c:30:36:ab:59:67:c5:e6:a0:
+        b5:5f:69:84:44:56:fe:a0:47:1d:26:24:85:41:a8:4e:69:23:
+        2d:23:0c:c8:f5:be:c7:db:99:6d:22:c0:3e:42:c4:e8:d5:d6:
+        90:09:7f:13:8d:e8:67:cb:2e:9a:75:40:73:ab:39:49:b6:18:
+        3f:9e:c0:90:f9:da:37:32:e7:af:93:1e:18:c1:d8:62:60:0a:
+        ed:72:12:16:81:30:e1:8a:8a:de:2c:d7:19:8a:41:e1:7e:9b:
+        88:6e
+-----BEGIN CERTIFICATE-----
+MIIDazCCAtSgAwIBAgIBDjANBgkqhkiG9w0BAQUFADCBvTELMAkGA1UEBhMCVVMx
+ETAPBgNVBAgTCE5ldyBZb3JrMREwDwYDVQQHEwhOZXcgWW9yazEjMCEGA1UEChMa
+VGhlIE5ldyBZb3JrIFRpbWVzIERpZ2l0YWwxHTAbBgNVBAsTFEluZnJhc3RydWN0
+dXJlIEdyb3VwMRgwFgYDVQQDEw9lYzIubnl0aW1lcy5jb20xKjAoBgkqhkiG9w0B
+CQEWG255dGRfYXV0b21hdGlvbkBueXRpbWVzLmNvbTAeFw0xMDA3MjIwODE0MTNa
+Fw0yMDA3MTkwODE0MTNaMIG7MQswCQYDVQQGEwJVUzERMA8GA1UECBMITmV3IFlv
+cmsxETAPBgNVBAcTCE5ldyBZb3JrMSMwIQYDVQQKExpUaGUgTmV3IFlvcmsgVGlt
+ZXMgRGlnaXRhbDEdMBsGA1UECxMUSW5mcmFzdHJ1Y3R1cmUgR3JvdXAxHDAaBgNV
+BAMTE25pbWJ1bC5teWRvbWFpbi5jb20xJDAiBgkqhkiG9w0BCQEWFXNlY3VyaXR5
+QG15ZG9tYWluLmNvbTCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEA8e1wNwE+
+5Ozs1GGTuy33hBPX4ND56Mk+D+2rYLXZQ1sxPwv3r/Sv2qga0TX2MXFg4/WUHL3u
+TLWuJ/jtip+vMsQpc+b7eKwjvE5x22ZXzRMTJQ+IdCzeaSQlKf5pxY01CwpRD/R/
+WF9WWnBEa9sQVK4rown9VIRzjFumhIKUzcECAwEAAaN7MHkwCQYDVR0TBAIwADAs
+BglghkgBhvhCAQ0EHxYdT3BlblNTTCBHZW5lcmF0ZWQgQ2VydGlmaWNhdGUwHQYD
+VR0OBBYEFMXlPeaqQPuDx61BFJnbi1AVg6gFMB8GA1UdIwQYMBaAFPVp9/78OFUZ
+yGvh4nSRYPklVPkLMA0GCSqGSIb3DQEBBQUAA4GBAJQOcSvVDiQd/RFKtdeCvDc0
+1pEDFRa78qfBw4wwNqtZZ8XmoLVfaYREVv6gRx0mJIVBqE5pIy0jDMj1vsfbmW0i
+wD5CxOjV1pAJfxON6GfLLpp1QHOrOUm2GD+ewJD52jcy56+THhjB2GJgCu1yEhaB
+MOGKit4s1xmKQeF+m4hu
+-----END CERTIFICATE-----

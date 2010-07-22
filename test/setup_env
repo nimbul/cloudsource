@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Set up environment variables so that this directory will be used as 
+# a place to install servermattic scripts, roles, and links:
+
+export X="testinggg"
+
+SCRIPTDIR=$(dirname "$0")
+#make absolute:
+pushd "$SCRIPTDIR" >/dev/null
+SCRIPTDIR=$(pwd)
+popd >/dev/null
+
+ENVFILE="$SCRIPTDIR/set_env"
+
+cat > "$ENVFILE" <<EOF
+export CS_BIN="$SCRIPTDIR/bin"
+export CS_ROLES="$SCRIPTDIR/roles"
+export CS_TARGET="$SCRIPTDIR/target"
+export SVNURL="$SVNURL"
+export SVNUSER="$SVNUSER"
+export SVNPASS="$SVNPASS"
+EOF
+
+echo "Environment file created at '$ENVFILE'"
+echo "use it with:  . $ENVFILE"

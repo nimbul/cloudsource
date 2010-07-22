@@ -1,0 +1,2 @@
+export RABBITMQ_NODE_IP_ADDRESS=127.0.0.1                                
+export RABBITMQ_NODE_PORT=5672 
